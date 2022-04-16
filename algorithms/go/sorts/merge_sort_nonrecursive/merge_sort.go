@@ -13,14 +13,13 @@ func min(a, b int) int {
 // T: O(nlogn) best/worst case
 // M: O(nlogn) best/worst case
 func MergeSort(a []int) []int {
-	for size := 1; size <= len(a)/2+1; size++ {
-		// [l:l+size)[l+size:l+size*2)
+	for size := 1; size <= len(a); size *= 2 {
 		for l := 0; l < len(a); l += size * 2 {
-			lr := min(l+size, len(a))
-			rr := min(l+size*2, len(a))
-			if lr != len(a) {
-				copy(a[l:rr], merge(a[l:lr], a[lr:rr]))
-			}
+			ll := l
+			lr := min(len(a), l+size)
+			rl := min(len(a), l+size)
+			rr := min(len(a), l+2*size)
+			copy(a[ll:rr], merge(a[ll:lr], a[rl:rr]))
 		}
 	}
 	return a
@@ -45,9 +44,9 @@ func merge(l, r []int) []int {
 }
 
 func main() {
-	for j := 0; j <= 16; j++ {
+	for j := 0; j <= 32; j++ {
 		a := make([]int, 0, j)
-		for i := 0; i < j; i++ {
+		for i := j; i >= 0; i-- {
 			a = append(a, i)
 		}
 		fmt.Println(MergeSort(a))
