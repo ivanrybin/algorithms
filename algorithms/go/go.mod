@@ -1,3 +1,3 @@
-module github.com/ivanrybin/algorithms/sorts/go
+module github.com/ivanrybin/algorithms/go
 
 go 1.17
